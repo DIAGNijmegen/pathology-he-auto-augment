@@ -4,7 +4,6 @@ https://arxiv.org/abs/1909.13719 published here
 https://github.com/tensorflow/tpu/blob/master/models/official/efficientnet/autoaugment.py
 
 """
-
 #Copyright 2019 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
