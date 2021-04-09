@@ -57,13 +57,7 @@ def train_classifier(dataset_dir, output_dir, n_epochs, batch_size, augmenter, l
             rand_n=rand_n,
             ra_type=ra_type
         )
-        '''
-        x, y= training_gen.next()
-        for i in range(len(y)):
-        
-            plt.imshow(x[i])
-            plt.savefig('/mnt/netcache/pathology/users/khrystyna/'+str(i)+'_'+str(y[i][0])+'.png')
-        '''
+      
         # Validation set
         print('___0___',join(dataset_dir, 'validation_x.npy'),'___1___',join(dataset_dir,'test_'+v1_type+'_x.npy'),'___2___',join(dataset_dir,'test_'+v2_type+'_x.npy'))
         print('Loading validation set ...', flush=True)
@@ -234,69 +228,6 @@ def build_classifier_model(input_shape, n_classes, lr, network_tag):
         x = dl.dense_op(x, 512, bn=True, activation='lrelu', name='dense1', l2_factor=l2_factor)
         x = dl.dense_op(x, n_classes, bn=False, activation='softmax', name='output', l2_factor=l2_factor)
 
-    elif network_tag == 'basic-nobn':
-        # Define classifier
-        l2_factor = 1e-6
-        x = dl.conv_op(input_x, 32, stride=1, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 64, stride=2, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 64, stride=1, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 128, stride=2, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 128, stride=1, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 256, stride=2, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 256, stride=1, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 512, stride=2, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.conv_op(x, 512, stride=1, bn=False, activation='lrelu', padding='valid', l2_factor=l2_factor)
-        x = dl.layers.GlobalAveragePooling2D()(x)
-        x = dl.layers.Dropout(0.5)(x)
-        x = dl.dense_op(x, 512, bn=False, activation='lrelu', name='dense1', l2_factor=l2_factor)
-        x = dl.dense_op(x, n_classes, bn=False, activation='softmax', name='output', l2_factor=l2_factor)
-
-    elif network_tag == 'inception-v3-pretrained':
-
-        inception_model = dl.applications.InceptionV3(
-            weights='imagenet',
-            include_top=False,
-            input_shape=(input_shape[0]*2, input_shape[1]*2, input_shape[2]),
-            pooling='avg'
-        )
-        inception_model.trainable = False
-
-        l2_factor = 1e-6
-        x = dl.layers.UpSampling2D((2, 2))(input_x)  # 256, 256
-        x = inception_model(x)
-        x = dl.layers.Dropout(0.5)(x)
-        x = dl.dense_op(x, n_classes, bn=False, activation='softmax', name='output', l2_factor=l2_factor)
-
-    elif network_tag == 'inception-v3':
-
-        inception_model = dl.applications.InceptionV3(
-            weights='imagenet',
-            include_top=False,
-            input_shape=(input_shape[0]*2, input_shape[1]*2, input_shape[2]),
-            pooling='avg'
-        )
-
-        l2_factor = 1e-6
-        x = dl.layers.UpSampling2D((2, 2))(input_x)  # 256, 256
-        x = inception_model(x)
-        x = dl.layers.Dropout(0.5)(x)
-        x = dl.dense_op(x, n_classes, bn=False, activation='softmax', name='output', l2_factor=l2_factor)
-
-
-    elif network_tag == 'inception-v3-random':
-
-        inception_model = dl.applications.InceptionV3(
-            weights=None,
-            include_top=False,
-            input_shape=(input_shape[0]*2, input_shape[1]*2, input_shape[2]),
-            pooling='avg'
-        )
-
-        l2_factor = 1e-6
-        x = dl.layers.UpSampling2D((2, 2))(input_x)  # 256, 256
-        x = inception_model(x)
-        x = dl.layers.Dropout(0.5)(x)
-        x = dl.dense_op(x, n_classes, bn=False, activation='softmax', name='output', l2_factor=l2_factor)
 
     else:
         raise Exception('Unknown network architecture {n}'.format(n=network_tag))
