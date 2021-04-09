@@ -6,7 +6,6 @@ mpl.use('Agg')  # plot figures when no screen available
 from augmenters.passthroughaugmenter import PassThroughAugmenter
 from augmenters.spatial.flipaugmenter import FlipAugmenter
 from augmenters.spatial.rotate90augmenter import Rotate90Augmenter
-from augmenters.color import coloraugmenterbase
 
 import numpy as np
 from matplotlib import pyplot as plt
