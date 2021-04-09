@@ -2,8 +2,6 @@
 This file contains base class for augmenting patches from whole slide images.
 """
 
-from ..errors import augmentationerrors as dptaugmentationerrors
-
 #----------------------------------------------------------------------------------------------------
 
 class AugmenterBase(object):
