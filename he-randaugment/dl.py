@@ -4,7 +4,7 @@ This module contains useful classes and functions to support Deep Learning and K
 
 import matplotlib as mpl
 
-from metrics import accuracy_fn, spearman_fn
+from metrics import accuracy_fn
 from data_handling import dump_patches
 
 mpl.use('Agg')  # plot figures when no screen available
