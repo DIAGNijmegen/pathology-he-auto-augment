@@ -4,8 +4,6 @@ This file contains a class for augmenting patches from whole slide images by app
 
 from . import coloraugmenterbase as dptcoloraugmenterbase
 
-from ...errors import augmentationerrors as dptaugmentationerrors
-
 import skimage.color
 import numpy as np
 
@@ -61,15 +59,15 @@ class HsbColorAugmenter(dptcoloraugmenterbase.ColorAugmenterBase):
         #
         if hue_sigma_range is not None:
             if len(hue_sigma_range) != 2 or hue_sigma_range[1] < hue_sigma_range[0] or hue_sigma_range[0] < -1.0 or 1.0 < hue_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidHueSigmaRangeError(hue_sigma_range)
+                raise Exception("InvalidHueSigmaRangeError(hue_sigma_range)")
 
         if saturation_sigma_range is not None:
             if len(saturation_sigma_range) != 2 or saturation_sigma_range[1] < saturation_sigma_range[0] or saturation_sigma_range[0] < -1.0 or 1.0 < saturation_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidSaturationSigmaRangeError(saturation_sigma_range)
+                raise Exception("InvalidSaturationSigmaRangeError(saturation_sigma_range)")
 
         if brightness_sigma_range is not None:
             if len(brightness_sigma_range) != 2 or brightness_sigma_range[1] < brightness_sigma_range[0] or brightness_sigma_range[0] < -1.0 or 1.0 < brightness_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidBrightnessSigmaRangeError(brightness_sigma_range)
+                raise Exception("InvalidBrightnessSigmaRangeError(brightness_sigma_range)")
 
         # Store the setting.
         #
