@@ -1,10 +1,3 @@
-''' 
-Organizes experiments 
-./c-submit --require-gpu-mem="8G" --gpu-count="1" --require-mem="82" --require-cpus="32" --priority="low" khrystynafaryna 9548 72 doduo1.umcn.nl/khrystynafaryna/kf_container:latest python3 /mnt/netcache/pathology/projects/autoaugmentation/randaugment/source/model/launch_experiment.py -val1 'rh' -val2 'cwh' -test1 'umcu' -test1 'lpe' -rn 2 -rm 1
-
-'''
-#import tensorflow as tf
-#tf.enable_eager_execution()
 import matplotlib as mpl
 mpl.use('Agg')
 
@@ -38,12 +31,9 @@ def launch_experiment(dataset_dir, output_dir, experiment_tag, augmentation_tag,
     # Prepare directories
     if randaugment:
         # Prepare directories
-        #classifier_dir = join(output_dir, experiment_tag, augmentation_tag, organ_tag, network_tag,'n_'+str(rand_n),'m_'+str(rand_m), trial_tag)
-        #if (v1_type and v2_type and t1_type and t2_type)!=None:
+        
         classifier_dir = join(output_dir, v1_type+'_'+v2_type+'_'+t1_type+'_'+t2_type,experiment_tag, augmentation_tag, organ_tag, network_tag,'n_'+str(rand_n),'m_'+str(rand_m), trial_tag)
-        #if ra_type !='Default':
-        # Prepare directories
-        #classifier_dir = join(output_dir, ra_type ,experiment_tag, augmentation_tag, organ_tag, network_tag,'n_'+str(rand_n),'m_'+str(rand_m), trial_tag)
+        
     else:
         classifier_dir = join(output_dir, experiment_tag, augmentation_tag, organ_tag, network_tag, trial_tag)
     if not exists(classifier_dir):
@@ -111,9 +101,9 @@ def collect_arguments():
     print("In collect_arguments")
     argument_parser = argparse.ArgumentParser(description='Trains a classifier given experiment parameters.')
     
-    argument_parser.add_argument('-d', '--dataset_dir', required=False,       type=str, default="/mnt/netcache/pathology/projects/autoaugmentation/data",   help='directory where the data lives')
+    argument_parser.add_argument('-d', '--dataset_dir', required=False,       type=str, default="data",   help='directory where the data lives')
     
-    argument_parser.add_argument('-o', '--output_dir',  required=False,       type=str, default="/mnt/netcache/pathology/projects/autoaugmentation/randaugment_multi_hsv_randomize_hed/models",  help='directory where the results will be stored')
+    argument_parser.add_argument('-o', '--output_dir',  required=False,       type=str, default="randaugment_multi_hsv_randomize_hed/models",  help='directory where the results will be stored')
     argument_parser.add_argument('-et', '--experiment_tag',         required=False,       type=str, default="rgb",  help='experiment identifier')
     argument_parser.add_argument('-at', '--augmentation_tag',         required=False,       type=str, default="baseline",   help='augmentation identifier')
     argument_parser.add_argument('-ot', '--organ_tag',         required=False,       type=str, default="lymph",   help='organ identifier')
