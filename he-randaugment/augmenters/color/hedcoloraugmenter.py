@@ -4,8 +4,6 @@ This file contains a class for augmenting patches from whole slide images by app
 from utils.custom_hed_transform import rgb2hed, hed2rgb
 from . import coloraugmenterbase as dptcoloraugmenterbase
 
-from ...errors import augmentationerrors as dptaugmentationerrors
-
 import numpy as np
 
 #----------------------------------------------------------------------------------------------------
@@ -73,15 +71,15 @@ class HedColorAugmenter(dptcoloraugmenterbase.ColorAugmenterBase):
         #
         if haematoxylin_sigma_range is not None:
             if len(haematoxylin_sigma_range) != 2 or haematoxylin_sigma_range[1] < haematoxylin_sigma_range[0] or haematoxylin_sigma_range[0] < -1.0 or 1.0 < haematoxylin_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidHaematoxylinSigmaRangeError(haematoxylin_sigma_range)
+                raise Exception("InvalidHaematoxylinSigmaRangeError(haematoxylin_sigma_range)")
 
         if eosin_sigma_range is not None:
             if len(eosin_sigma_range) != 2 or eosin_sigma_range[1] < eosin_sigma_range[0] or eosin_sigma_range[0] < -1.0 or 1.0 < eosin_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidEosinSigmaRangeError(eosin_sigma_range)
+                raise Exception("InvalidEosinSigmaRangeError(eosin_sigma_range)")
 
         if dab_sigma_range is not None:
             if len(dab_sigma_range) != 2 or dab_sigma_range[1] < dab_sigma_range[0] or dab_sigma_range[0] < -1.0 or 1.0 < dab_sigma_range[1]:
-                raise dptaugmentationerrors.InvalidDabSigmaRangeError(dab_sigma_range)
+                raise Exception("InvalidDabSigmaRangeError(dab_sigma_range)")
 
         # Store the settings.
         #
@@ -110,15 +108,15 @@ class HedColorAugmenter(dptcoloraugmenterbase.ColorAugmenterBase):
         #
         if haematoxylin_bias_range is not None:
             if len(haematoxylin_bias_range) != 2 or haematoxylin_bias_range[1] < haematoxylin_bias_range[0] or haematoxylin_bias_range[0] < -1.0 or 1.0 < haematoxylin_bias_range[1]:
-                raise dptaugmentationerrors.InvalidHaematoxylinBiasRangeError(haematoxylin_bias_range)
+                raise Exception("InvalidHaematoxylinBiasRangeError(haematoxylin_bias_range)")
 
         if eosin_bias_range is not None:
             if len(eosin_bias_range) != 2 or eosin_bias_range[1] < eosin_bias_range[0] or eosin_bias_range[0] < -1.0 or 1.0 < eosin_bias_range[1]:
-                raise dptaugmentationerrors.InvalidEosinBiasRangeError(eosin_bias_range)
+                raise Exception("InvalidEosinBiasRangeError(eosin_bias_range)")
 
         if dab_bias_range is not None:
             if len(dab_bias_range) != 2 or dab_bias_range[1] < dab_bias_range[0] or dab_bias_range[0] < -1.0 or 1.0 < dab_bias_range[1]:
-                raise dptaugmentationerrors.InvalidDabBiasRangeError(dab_bias_range)
+                raise Exception("InvalidDabBiasRangeError(dab_bias_range)")
 
         # Store the settings.
         #
@@ -143,7 +141,7 @@ class HedColorAugmenter(dptcoloraugmenterbase.ColorAugmenterBase):
         #
         if cutoff_range is not None:
             if len(cutoff_range) != 2 or cutoff_range[1] < cutoff_range[0] or cutoff_range[0] < 0.0 or 1.0 < cutoff_range[1]:
-                raise dptaugmentationerrors.InvalidCutoffRangeError(cutoff_range)
+                raise Exception("InvalidCutoffRangeError(cutoff_range)")
 
         # Store the setting.
         #
@@ -210,93 +208,6 @@ class HedColorAugmenter(dptcoloraugmenterbase.ColorAugmenterBase):
             return patch
 
 
-    # def transform(self, patch):
-    #     """
-    #     Apply color deformation on the patch.
-    #
-    #     Args:
-    #         patch (np.ndarray): Patch to transform.
-    #
-    #     Returns:
-    #         np.ndarray: Transformed patch.
-    #     """
-    #     import time
-    #
-    #     print('### Timing ###')
-    #     t_init = time.time()
-    #
-    #     # Check if the patch is inside the cutoff values.
-    #     #
-    #     patch_mean = np.mean(a=patch) / 255.0
-    #     if self.__cutoff_range[0] <= patch_mean <= self.__cutoff_range[1]:
-    #         # Reorder the patch to channel last format and convert the image patch to HED color coding.
-    #         #
-    #         # t = time.time()
-    #         patch_image = np.transpose(a=patch, axes=(1, 2, 0))
-    #         # print('{f} took {s} s'.format(f='initial transpose', s=(time.time() - t)), flush=True)
-    #
-    #         t = time.time()
-    #         patch_hed = rgb2hed(rgb=patch_image)
-    #         print('{f} took {s} s'.format(f='rgb2hed', s=(time.time() - t)), flush=True)
-    #
-    #         # Augment the Haematoxylin channel.
-    #         #
-    #         # t = time.time()
-    #         if self.__sigmas[0] != 0.0:
-    #             patch_hed[:, :, 0] *= (1.0 + self.__sigmas[0])
-    #
-    #         if self.__biases[0] != 0.0:
-    #             patch_hed[:, :, 0] += self.__biases[0]
-    #         # print('{f} took {s} s'.format(f='H variation', s=(time.time() - t)), flush=True)
-    #
-    #         # Augment the Eosin channel.
-    #         #
-    #         # t = time.time()
-    #         if self.__sigmas[1] != 0.0:
-    #             patch_hed[:, :, 1] *= (1.0 + self.__sigmas[1])
-    #
-    #         if self.__biases[1] != 0.0:
-    #             patch_hed[:, :, 1] += self.__biases[1]
-    #         # print('{f} took {s} s'.format(f='E variation', s=(time.time() - t)), flush=True)
-    #
-    #         # Augment the DAB channel.
-    #         #
-    #         # t = time.time()
-    #         if self.__sigmas[2] != 0.0:
-    #             patch_hed[:, :, 2] *= (1.0 + self.__sigmas[2])
-    #
-    #         if self.__biases[2] != 0.0:
-    #             patch_hed[:, :, 2] += self.__biases[2]
-    #         # print('{f} took {s} s'.format(f='D variation', s=(time.time() - t)), flush=True)
-    #
-    #         # Convert back to RGB color coding and order back to channels first order.
-    #         #
-    #         t = time.time()
-    #         patch_rgb = hed2rgb(hed=patch_hed)
-    #         print('{f} took {s} s'.format(f='hed2rgb', s=(time.time() - t)), flush=True)
-    #
-    #         # t = time.time()
-    #         patch_rgb = np.clip(a=patch_rgb, a_min=0.0, a_max=1.0)
-    #         # print('{f} took {s} s'.format(f='clip', s=(time.time() - t)), flush=True)
-    #
-    #         # t = time.time()
-    #         patch_rgb *= 255.0
-    #         patch_rgb = patch_rgb.astype(dtype=np.uint8)
-    #         # print('{f} took {s} s'.format(f='255 and uint8', s=(time.time() - t)), flush=True)
-    #
-    #         # t = time.time()
-    #         patch_transformed = np.transpose(a=patch_rgb, axes=(2, 0, 1))
-    #         # print('{f} took {s} s'.format(f='transpose end', s=(time.time() - t)), flush=True)
-    #
-    #         p = patch_transformed
-    #
-    #     else:
-    #         # The image patch is outside the cutoff interval.
-    #         #
-    #         p = patch
-    #
-    #     print('{f} took {s} s'.format(f='all', s=(time.time() - t_init)), flush=True)
-    #     return p
 
     def randomize(self):
         """Randomize the parameters of the augmenter."""
