@@ -4,7 +4,6 @@ This file contains a class for augmenting patches from whole slide images with l
 
 from . import spatialaugmenterbase as dptspatialaugmenterbase
 
-from ...errors import augmentationerrors as dptaugmentationerrors
 
 import numpy as np
 
@@ -51,7 +50,7 @@ class FlipAugmenter(dptspatialaugmenterbase.SpatialAugmenterBase):
         # Check the list.
         #
         if not set(flip_list) <= {'none', 'vertical', 'horizontal', 'both'}:
-            raise dptaugmentationerrors.InvalidFlipListError(flip_list)
+            raise Exception("InvalidFlipListError(flip_list)")
 
         # Store the setting.
         #
@@ -80,7 +79,7 @@ class FlipAugmenter(dptspatialaugmenterbase.SpatialAugmenterBase):
         elif self.__flip == 'both':
             patch_transformed = np.fliplr(np.flipud(np.transpose(a=patch, axes=(1, 2, 0))))
         else:
-            raise dptaugmentationerrors.InvalidFlipMode(self.__flip)
+            raise Exception("InvalidFlipMode(self.__flip)")
 
         # Transpose the patch back to the right color first order.
         #
