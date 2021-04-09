@@ -299,6 +299,9 @@ def _parse_policy_info(name, prob, level, replace_value, augmentation_hparams,ma
   if name=='Hsv':
       func = NAME_TO_FUNC[name]
       args = level_to_arg(augmentation_hparams)[name](magnitude)
+  if name=='Hed':
+      func = NAME_TO_FUNC[name]
+      args = level_to_arg(augmentation_hparams)[name](magnitude)
   else:
       func = NAME_TO_FUNC[name]
       args = level_to_arg(augmentation_hparams)[name](level)
