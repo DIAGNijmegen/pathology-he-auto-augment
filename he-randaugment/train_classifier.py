@@ -4,7 +4,7 @@ This module trains a supervised multiclass classifier.
 
 # import utils.set_random_seed  # sets random seeds
 from data_generator import SupervisedGenerator, SupervisedSequence, SupervisedSequenceSingle
-from dl import pred_model, print_filters
+from dl import pred_model
 
 import pandas as pd
 import dl
