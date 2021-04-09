@@ -4,7 +4,6 @@ This file contains a class for augmenting patches from whole slide images with r
 
 from . import spatialaugmenterbase as dptspatialaugmenterbase
 
-from ...errors import augmentationerrors as dptaugmentationerrors
 
 import numpy as np
 
@@ -52,7 +51,7 @@ class Rotate90Augmenter(dptspatialaugmenterbase.SpatialAugmenterBase):
         # Check the list.
         #
         if len(k_list) < 1 or any(isinstance(k_item, float) and not float.is_integer(k_item) for k_item in k_list):
-            raise dptaugmentationerrors.InvalidRotationRepetitionListError(k_list)
+            raise Exception("InvalidRotationRepetitionListError(k_list)")
 
         # Store the setting.
         #
