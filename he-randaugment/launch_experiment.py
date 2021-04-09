@@ -10,7 +10,6 @@ import time
 import random
 from data_augmentation import DataAugmenter
 from train_classifier import train_classifier
-from train_standardizer import train_standardizer
 
 def launch_experiment(dataset_dir, output_dir, experiment_tag, augmentation_tag, organ_tag, network_tag, trial_tag,
                       workers, batch_size, lr, n_epochs, test_only=False, ignore_std_test_set=False, prob_white_patch=None,randaugment=True, rand_m=5, rand_n=1,ra_type='Default', v1_type=None, v2_type=None, t1_type=None, t2_type=None):
