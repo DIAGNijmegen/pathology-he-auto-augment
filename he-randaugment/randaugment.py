@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 """
 This repository is build upon RandAugment implementation
 https://arxiv.org/abs/1909.13719 published here
@@ -22,10 +25,6 @@ https://github.com/tensorflow/tpu/blob/master/models/official/efficientnet/autoa
 AutoAugment Reference: https://arxiv.org/abs/1805.09501
 RandAugment Reference: https://arxiv.org/abs/1909.13719
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import inspect
 import numpy as np
 import math
