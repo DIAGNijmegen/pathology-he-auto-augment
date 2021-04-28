@@ -9,5 +9,7 @@ Convolutional neural networks (CNN) are sensitive to domain shifts, which can re
 <div align="center">
     <img src="/he-randaugment/augmentations_new.png" width="900px"</img> 
 </div>
-
+**Methodology**
+**Code instructions**
+**Notes**
 In case of any questions, please contact: khrystyna.faryna@gmail.com
