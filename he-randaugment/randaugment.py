@@ -42,7 +42,7 @@ def hsv(image, factor):
     #print('image',image.shape)
     image=np.transpose(image,[2,0,1])
     augmentor= HsbColorAugmenter(hue_sigma_range=(-factor, factor), saturation_sigma_range=(-factor, factor), brightness_sigma_range=(0, 0))
-    #Not randomizing the augmentation magnitude 
+    #To select a random magnitude value between -factor:factor, if commented the m value will be constant
     augmentor.randomize()
     return np.transpose(augmentor.transform(image),[1,2,0])
     
@@ -54,7 +54,7 @@ def hed(image, factor):
                                             eosin_sigma_range=(-factor, factor), eosin_bias_range=(-factor, factor),
                                             dab_sigma_range=(-factor, factor), dab_bias_range=(-factor, factor),
                                             cutoff_range=(0.15, 0.85))
-    #Not randomizing the augmentation magnitude 
+    ##To select a random magnitude value between -factor:factor, if commented the m value will be constant
     augmentor.randomize()
     return np.transpose(augmentor.transform(image),[1,2,0])
     
@@ -416,7 +416,7 @@ def distort_image_with_randaugment(image, num_layers, magnitude,ra_type):
       values will be in the range [1, 3].
     magnitude: Integer, shared magnitude across all augmentation operations.
       Represented as (M) in the paper. Usually best values are in the range
-      [5, 30].
+      [1, 10].
     ra_type: List of augmentations to use
   Returns:
     The augmented version of `image`.
@@ -425,7 +425,7 @@ def distort_image_with_randaugment(image, num_layers, magnitude,ra_type):
   replace_value = (128, 128, 128)#[128] * 3
   #tf.logging.info('Using RandAug.')
   augmentation_hparams = contrib_training.HParams(cutout_const=40, translate_const=10)
-
+  #The 'Default' option is the H&E tailored randaugment
   if ra_type== 'Default': 
     available_ops = ['TranslateX', 'TranslateY','ShearX', 'ShearY','Brightness', 'Sharpness','Color', 'Contrast','Rotate', 'Equalize','Identity','Hsv','Hed']  
   elif ra_type== 'Original': 
