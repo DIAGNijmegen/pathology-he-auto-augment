@@ -15,10 +15,12 @@ Convolutional neural networks (CNN) are sensitive to domain shifts, which can re
 **Code instructions**
 
 To run the code:
-``` launch_experiment.py dataset_dir output_dir experiment_tag trial_tag n_epochs batch_size lr randaugment rand_m rand_n ra_type v1_type v2_type t1_type t2_type
+```
+launch_experiment.py dataset_dir output_dir experiment_tag trial_tag n_epochs batch_size lr randaugment rand_m rand_n ra_type v1_type v2_type t1_type t2_type
 ```
 To use the modified version of randaugment standalone you can apply the distort_image_with_randaugment.py function to each image in the training batch, providing following arguments magnitude (m), number of sequentially applied transforms (n or num_layers), type of a transform set (ra_type= 'Default') for transforms used in this paper. 
-``` distort_image_with_randaugment(image, m, n, ra_type)
+```
+distort_image_with_randaugment(image, m, n, ra_type)
 ``` 
 
 **Notes**
