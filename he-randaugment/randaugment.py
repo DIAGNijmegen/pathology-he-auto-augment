@@ -43,7 +43,7 @@ def hsv(image, factor):
     image=np.transpose(image,[2,0,1])
     augmentor= HsbColorAugmenter(hue_sigma_range=(-factor, factor), saturation_sigma_range=(-factor, factor), brightness_sigma_range=(0, 0))
     #To select a random magnitude value between -factor:factor, if commented the m value will be constant
-    #augmentor.randomize()
+    augmentor.randomize()
     return np.transpose(augmentor.transform(image),[1,2,0])
     
     
@@ -55,7 +55,7 @@ def hed(image, factor):
                                             dab_sigma_range=(-factor, factor), dab_bias_range=(-factor, factor),
                                             cutoff_range=(0.15, 0.85))
     ##To select a random magnitude value between -factor:factor, if commented the m value will be constant
-    #augmentor.randomize()
+    augmentor.randomize()
     return np.transpose(augmentor.transform(image),[1,2,0])
     
 def solarize(image, threshold=128):
