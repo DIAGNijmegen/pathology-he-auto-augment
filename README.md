@@ -26,3 +26,14 @@ distort_image_with_randaugment(image, m, n, ra_type)
 **Notes**
 
 In case of any questions, please contact: khrystyna.faryna@gmail.com
+
+
+**Publication**
+If you find this work useful, cite as:
+@inproceedings{faryna21,
+title={Tailoring automated data augmentation to H\&E-stained histopathology},
+author={Faryna, Khrystyna and van der Laak, Jeroen and Litjens, Geert},
+  booktitle={Medical Imaging with Deep Learning},
+  year={2021},
+  organization={PMLR}
+}
