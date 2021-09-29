@@ -12,6 +12,9 @@ Convolutional neural networks (CNN) are sensitive to domain shifts, which can re
 
 **Methodology**
 
+Check the [paper](https://2021.midl.io/proceedings/faryna21.pdf) for methodology.
+
+
 **Code instructions**
 
 To run the code:
@@ -22,7 +25,10 @@ To use the modified version of randaugment standalone you can apply the distort_
 ```
 distort_image_with_randaugment(image, m, n, ra_type)
 ``` 
+
 **Practical matters & clarifications**
+
+
 We explored following ranges of magnitudes, while tuning the RandAugment to H&E stained histopathology, (also Table 1 in the paper):
 
 | transform type | magnitude range | transform type | magnitude range |
