@@ -22,10 +22,38 @@ To use the modified version of randaugment standalone you can apply the distort_
 ```
 distort_image_with_randaugment(image, m, n, ra_type)
 ``` 
+**Practical matters & clarifications**
+We explored following ranges of magnitudes, while tuning the RandAugment to H&E stained histopathology, (also Table 1 in the paper):
+```
+| transform type | magnitude range | transform type | magnitude range |
+| ------------- | ------------- | ------------- | ------------- |
+|‘identity’ | - | ‘shear x’ | [-0.9, 0.9] |
+|‘contrast’ | [0.0, 5.5] | ‘shear y’ | [-0.9, 0.9] |
+|‘brightness’ | [0.0, 5.5] | ‘HED shift’ | [-0.9, 0.9] |
+|‘sharpness’ | [0.0, 5.5] | ‘HSV shift’ | [-0.9, 0.9] |
+|‘rotation’ | [-90.0, 90.0] | ‘autocontrast’ | - |
+|‘translate x’ | [-30.0, 30.0] | ‘color’ | [0.0, 5.5] |
+|‘translate y’ | [-30.0, 30.0] | ‘equalize’ | - |
+```
+Discretized into 30 points as suggested in RandAugment code. 
+For the **final** search of optimal magnitude we used the following ranges:
+
+```
+| transform type | magnitude range | transform type | magnitude range |
+| ------------- | ------------- | ------------- | ------------- |
+|‘identity’ | - | ‘shear x’ | [-0.45, 0.45] |
+|‘contrast’ | [0.28, 2.8] | ‘shear y’ | [-0.45, 0.45] |
+|‘brightness’ | [0.28, 2.8] | ‘HED shift’ | [-0.45, 0.45] |
+|‘sharpness’ | [0.28, 2.8] | ‘HSV shift’ | [-0.45, 0.45] |
+|‘rotation’ | [-45.0, 45.0] | ‘autocontrast’ | - |
+|‘translate x’ | [-15.0, 15.0] | ‘color’ | [0.28, 2.8] |
+|‘translate y’ | [-15.0, 15.0] | ‘equalize’ | - |
+```
+You can obtain these ranges py plugging values of magnitudes m from 1 to 15 into *distort_image_with_randaugment* function. We noticed that ranges with values of m above 15 can result in strong distortion of the histopatholological image for some transforms (i.e. *brightness* with m>15 results in structures in the image dissapearing), in final search we only used m={1:15}. 
 
 **Notes**
 
-In case of any questions, please contact: khrystyna.faryna@gmail.com
+In case of any questions, please contact: khrystyna.faryna@gmail.com 
 
 
 **Publication**
