@@ -57,6 +57,8 @@ For the **final** search of optimal magnitude we used the following ranges:
 You can obtain these ranges py plugging values of magnitudes m from 1 to 15 into *distort_image_with_randaugment* function. We noticed that ranges with values of m above 15 can result in strong distortion of the histopatholological image for some transforms (i.e. *brightness* with m>15 results in structures in the image dissapearing), in final search we only used m={1:15}. 
 
 *Bear in mind that these ranges only make sense if you use same transform functions as used in this code (hsv and hed from our library and PIL for the rest).*
+
+
 **Notes**
 
 In case of any questions, please contact: khrystyna.faryna@gmail.com 
