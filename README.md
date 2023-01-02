@@ -70,11 +70,19 @@ In case of any questions, please contact: khrystyna.faryna@gmail.com
 If you find this work useful, cite as:
 
 ```
-@inproceedings{faryna21,
-title={Tailoring automated data augmentation to H\&E-stained histopathology},
-author={Faryna, Khrystyna and van der Laak, Jeroen and Litjens, Geert},
-  booktitle={Medical Imaging with Deep Learning},
-  year={2021},
-  organization={PMLR}
+@InProceedings{faryna21,
+  title = 	 {Tailoring automated data augmentation to H&amp;E-stained histopathology},
+  author =       {Faryna, Khrystyna and van der Laak, Jeroen and Litjens, Geert},
+  booktitle = 	 {Proceedings of the Fourth Conference on Medical Imaging with Deep Learning},
+  pages = 	 {168--178},
+  year = 	 {2021},
+  editor = 	 {Heinrich, Mattias and Dou, Qi and de Bruijne, Marleen and Lellmann, Jan and Schläfer, Alexander and Ernst, Floris},
+  volume = 	 {143},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {07--09 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v143/faryna21a/faryna21a.pdf},
+  url = 	 {https://proceedings.mlr.press/v143/faryna21a.html},
+
 }
 ```
